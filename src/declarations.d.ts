@@ -1,18 +1,35 @@
-declare module 'onnxruntime-web' {
-  export * from 'onnxruntime-common'
-  // minimal types used in this demo
-  export namespace Tensor { }
-  export class Tensor<T = any> {
-    data: any
-    dims: number[]
-    type: string
-    constructor(type: string, data: T, dims: number[])
-  }
-  export interface InferenceSession {
-    inputNames: any
-    run(feeds: Record<string, Tensor>): Promise<Record<string, Tensor>>
-  }
-  export const InferenceSession: {
-    create: (urlOrBuffer: string | ArrayBuffer, options?: any) => Promise<InferenceSession>
-  }
+// src/declarations.d.ts
+declare module '*.png' {
+  const value: string;
+  export default value;
 }
+
+declare module '*.jpg' {
+  const value: string;
+  export default value;
+}
+
+declare module '*.jpeg' {
+  const value: string;
+  export default value;
+}
+
+declare module '*.webp' {
+  const value: string;
+  export default value;
+}
+
+declare module '*.svg' {
+  const content: any;
+  export default content;
+}
+
+// TensorFlow.js declarations
+declare namespace tf {
+  export function loadGraphModel(modelUrl: string): Promise<any>;
+  export function loadLayersModel(modelUrl: string): Promise<any>;
+  export function tensor<T extends tf.Tensor>(data: T|number[]|number[][]|number[][][]|number[][][][], shape?: number[], dtype?: tf.DataType): T;
+  export function dispose(tensor: tf.Tensor): void;
+}
+
+// Add other custom type declarations as needed
